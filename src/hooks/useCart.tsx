@@ -6,7 +6,7 @@ import { Product, Stock } from '../types';
 interface CartProviderProps {
   children: ReactNode;
 }
-
+ 
 interface UpdateProductAmount {
   productId: number;
   amount: number;
@@ -23,18 +23,20 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const [cart, setCart] = useState<Product[]>(() => {
-    // const storagedCart = Buscar dados do localStorage
+    const storagedCart = localStorage.getItem('@RocketShoes:cart');
+    // localStorage.setItem('@RocketShoes:cart', cart)
 
-    // if (storagedCart) {
-    //   return JSON.parse(storagedCart);
-    // }
+    if (storagedCart) {
+      return JSON.parse(storagedCart);
+    }
 
     return [];
   });
 
   const addProduct = async (productId: number) => {
+    // const [amount, setAmount] = useState(0);
     try {
-      // TODO
+      // setCart({productId, amount});
     } catch {
       // TODO
     }
