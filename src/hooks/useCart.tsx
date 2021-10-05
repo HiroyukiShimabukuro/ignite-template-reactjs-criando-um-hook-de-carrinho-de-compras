@@ -43,13 +43,13 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         const addedProduct = cart.map((el) => {
           if(stock.data.amount > el.amount){
             if(alreadyAdded.id == el.id) el.amount = el.amount +1;
-            return el;
           }
           else {
             toast.error('Quantidade solicitada fora de estoque');
-            return el;
           }
+          return el;
         }) 
+        
         localStorage.setItem('@RocketShoes:cart', JSON.stringify(addedProduct))
       }else{
         cartItems.push({...data, amount: 1});
@@ -63,9 +63,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const cartItems = [...cart];
+      cartItems.map((product)=> product.id != productId);
+      setCart(cartItems);
     } catch {
-      // TODO
+      toast.error('Erro na remoção do produto');
     }
   };
 
